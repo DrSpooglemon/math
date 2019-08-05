@@ -297,11 +297,14 @@ while True:
         back_space = False
         enter = False
         result = False
+        error = False
         cancel = False
 
     if num != None:
         if result == True:
             equation = ''
+            text2 = ''
+            error = False
             result = False
         l = len(equation)
         if l > 1:
@@ -324,15 +327,23 @@ while True:
             if equation.count('.') < 2:
                 equation += '.'
         elif equation.count('.') == 0:
-            result = False
-            if equation == '':
+            if error == True or equation == '':
                 equation = '0'
+                if error == True:
+                    text2 = ''
+                    error = False
             equation += '.'
+            result = False
         decimal = False
 
     if root == True:
         if result == True:
-            equation = '√'+equation
+            if error == True:
+                equation = '√'
+                text2 = ''
+                error = False
+            else:
+                equation = '√'+equation
             result = False
         l = len(equation)
         t = equation[l-1:]
@@ -341,19 +352,22 @@ while True:
         root = False
 
     if sqr == True:
-        result = False
         l = len(equation)
-        if l > 0:
+        if l > 0 and error == False:
             t = equation[l-1:]
             if t != '×' and t != '÷' and t != '+' and t != '-' and t != '√' and t != '²':
                 if t == '.':
                     equation = equation[:l-1]
+                result = False
                 equation += '²'
         sqr = False
 
     if func != None:
         result = False
         l = len(equation)
+        if l == 0:
+            equation = '0'
+            l = len(equation)
         t = equation[l-1:]
         if t == '.':
             equation = equation[:l-1]
@@ -390,10 +404,15 @@ while True:
             equation = equation[:l-1]
         equation = Calculator(equation)
         text2 = equation.__str__()
-        equation = round(equation.__calculate__(),8)
-        if type(equation) is float and equation - int(equation) == 0:
-            equation = int(equation)
-        equation = str(equation)
+        equation = equation.__calculate__()
+        if type(equation) is str:
+            error = True
+            equation = 'Fart'
+        else:
+            if type(equation) is float and equation - int(equation) == 0:
+                equation = int(equation)
+            equation = round(equation,8)
+            equation = str(equation)
         result = True
         enter = False
 
@@ -401,12 +420,16 @@ while True:
         text1 = equation
     else:
         text1 = '0'
-
+    if error == True:
+        display.color = (60,30,0)
+    else:
+        display.color = bgcolor
     display.update(text1,text2)
     screen_surf.blit(display.image,(0,0))
     py.draw.line(screen_surf,lncolor,(0,size1[1]),(size1[0],size1[1]),line_width_1)
     screen.update()
 
     clock.tick(fps)
+
 
 
