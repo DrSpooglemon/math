@@ -2,7 +2,7 @@
 
 Calculator
   First attempt is a very basic calculator and probably a bunch of spaghetti code. I'm going to work on having a separate calculator class and GUI, then add other calculator functions.
-  Calculato_1 is the polished version. It has a few more lines of code but the functionality is better and the code is a little neater. Next step is to allow for the handling of longer equations including parentheses, then more math functions.
+  Calculato_1 is the polished version. It has a few more lines of code but the functionality is better and the code is a little neater. The Calculator class takes a the equation in the form of a string. Next step is to allow for the handling of longer equations including parentheses, then more math functions.
   
 
 Fractionator.Fraction(frac,unit=0) calculator class object.
