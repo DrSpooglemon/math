@@ -122,8 +122,12 @@ class Calculator:
 
                     return N1*N2
                 elif f == '÷':
-
-                    return N1/N2
+                        if N2 == 0:
+                            
+                        return 'Error: division by zero'
+                    else:
+                        
+                        return N1/N2
                 elif f == '+':
 
                     return N1+N2
