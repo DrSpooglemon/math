@@ -23,8 +23,8 @@ class Calculator:
             N1 = e[0]
             f = e[1]
             N2 = e[2]
-        elif '-' in string:
-            e = string.partition('-')
+        elif '−' in string:
+            e = string.partition('−')
             N1 = e[0]
             f = e[1]
             N2 = e[2]
@@ -131,7 +131,7 @@ class Calculator:
                 elif f == '+':
 
                     return N1+N2
-                elif f == '-':
+                elif f == '−':
 
                     return N1-N2
             else:
