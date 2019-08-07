@@ -320,10 +320,10 @@ while True:
     if decimal == True:
         l = len(equation)
         t = equation[l-1:]
-        if t == '×' or t == '÷' or t == '+' or t == '-' or t == '√':
+        if t == '×' or t == '÷' or t == '+' or t == '−' or t == '√':
             equation += '0'
             equation += '.'
-        elif '×' in equation or '÷' in equation or '+' in equation or '-' in equation:
+        elif '×' in equation or '÷' in equation or '+' in equation or '−' in equation:
             if equation.count('.') < 2:
                 equation += '.'
         elif equation.count('.') == 0:
@@ -347,7 +347,7 @@ while True:
             result = False
         l = len(equation)
         t = equation[l-1:]
-        if l == 0 or t == '×' or t == '÷' or t == '+' or t == '-':
+        if l == 0 or t == '×' or t == '÷' or t == '+' or t == '−':
             equation += '√'
         root = False
 
@@ -355,7 +355,7 @@ while True:
         l = len(equation)
         if l > 0 and error == False:
             t = equation[l-1:]
-            if t != '×' and t != '÷' and t != '+' and t != '-' and t != '√' and t != '²':
+            if t != '×' and t != '÷' and t != '+' and t != '−' and t != '√' and t != '²':
                 if t == '.':
                     equation = equation[:l-1]
                 result = False
@@ -373,8 +373,8 @@ while True:
             equation = equation[:l-1]
             l = len(equation)
             t = equation[l-1:]
-        if '×' in equation or '÷' in equation or '+' in equation or '-' in equation:
-            if t == '×' or t == '÷' or t == '+' or t == '-' :
+        if '×' in equation or '÷' in equation or '+' in equation or '−' in equation:
+            if t == '×' or t == '÷' or t == '+' or t == '−' :
                 equation = equation[:l-1]
                 if t == '√':
                     l = len(equation)
@@ -396,9 +396,9 @@ while True:
     if enter == True:
         l = len(equation)
         t = equation[l-1:]
-        if t == '×' or t == '÷' or t == '+' or t == '-':
+        if t == '×' or t == '÷' or t == '+' or t == '−':
             equation = equation[:l-1]
-            if '×' in equation or '÷' in equation or '+' in equation or '-' in equation:
+            if '×' in equation or '÷' in equation or '+' in equation or '−' in equation:
                 func = t
         elif t == '.':
             equation = equation[:l-1]
