@@ -166,11 +166,16 @@ class Calculator:
                     except:
                         pass
                 elif type(item) is str and '√' in item:
+                    if '²' in item:
+                        item = item.partition('²')[0]
+                        item = item.partition('√')[2]
+                    else:
+                        item = str(sqrt(float(item[1:])))
                     try:
                         new_list.extend(_list[:i])
                     except:
                         pass
-                    new_list.extend([str(sqrt(float(item[1:])))])
+                    new_list.extend([item])
                     try:
                         new_list.extend(_list[i+1:])
                     except:
