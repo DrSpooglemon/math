@@ -51,38 +51,9 @@ class CalculatorApp(App):
         if display_2 != None:
             self.display_2.text = display_2
 
-    def _cancel(self):
-        self.inp = ''
-        self.dec = False
-        self.sqrt = False
-        self.sqr = False
-        self.oper = None
-        self._display_update(display_1='0',display_2='')
-
-    def _del(self,last,pop):
-        if last == '²':
-            self.sqr = False
-        elif last == '√':
-            self.sqrt = False
-        elif last in self.operators:
-            self.oper = None
-        elif last == '.':
-            self.dec = False
-        self.inp = pop
-
-    def _sqrt(self,inp):
-        if self.oper == None:
-            self.inp = inp+self.inp
-            self.sqrt = True
-        else:
-            p = self.inp.partition(self.oper)
-            self.inp = p[0]+p[1]+inp+p[2]
-            self.sqrt = True
-
     def _num(self,inp,pop):
         if self.sqr == True:
             self.inp = pop
-            self.equ = pop
             self.sqr = False
         self.inp += inp
 
@@ -100,6 +71,15 @@ class CalculatorApp(App):
                 self.inp += '0'
         self.inp += inp
         self.dec = True
+
+    def _sqrt(self,inp):
+        if self.oper == None:
+            self.inp = inp+self.inp
+            self.sqrt = True
+        else:
+            p = self.inp.partition(self.oper)
+            self.inp = p[0]+p[1]+inp+p[2]
+            self.sqrt = True
 
     def _sqr(self,inp,last,pop):
         if  last == '.':
@@ -141,6 +121,26 @@ class CalculatorApp(App):
             if inp == '−':
                 self.inp = inp
 
+    def _del(self,last,pop):
+        if last == '²':
+            self.sqr = False
+        elif last == '√':
+            self.sqrt = False
+        elif last in self.operators:
+            self.oper = None
+        elif last == '.':
+            self.dec = False
+        self.inp = pop
+
+    def _cancel(self):
+        self.inp = ''
+        self.is_result = False
+        self.dec = False
+        self.sqrt = False
+        self.sqr = False
+        self.oper = None
+        self._display_update(display_1='0',display_2='')
+
     def _parse(self,_string):
         for i,o in enumerate(self.operators):
             if o != '+':
@@ -150,6 +150,14 @@ class CalculatorApp(App):
                     else:
                         break
         return _string
+
+    def _switch(self,inp):
+        if not inp.isdigit():
+            self.inp = self.result
+            self._display_update(self.inp)
+        else:
+            self._display_update(self.inp,self.result)
+        self.is_result = False
 
     def _reset_with_error(self):
         self._display_update('Error',self.inp)
@@ -164,6 +172,7 @@ class CalculatorApp(App):
         result = Calculator(self.equ)._calculate()
         if result == 'Error':
             self._reset_with_error()
+            self.is_result = False
         else:
             if result - int(result) == 0:
                 result = int(result)
@@ -184,7 +193,6 @@ class CalculatorApp(App):
             self._switch(inp)
         last = self.inp[:len(self.inp)-2:-1]
         pop = self.inp[:len(self.inp)-1:]
-
         if inp == 'C':
             self._cancel()
         elif inp == '=':
@@ -212,15 +220,6 @@ class CalculatorApp(App):
                 self._del(last,pop)
 
             self._display_update(self.inp)
-
-    def _switch(self,inp):
-        if not inp.isdigit():
-            self.inp = self.result
-            self._display_update(self.inp)
-        else:
-            self._display_update(self.inp,self.result)
-        self.is_result = False
-
-
+            
 if __name__ == '__main__':
     CalculatorApp().run()
