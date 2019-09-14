@@ -6,8 +6,9 @@ Calculator
     
     Second attempt at a calculator involves a separate Calculator class which is pretty lame.
     
-    Third attemps, using Kivy for the GUI instead of pygame has a much improved Calculator class which can 
-    handle parenthesis although the GUI does not allow for their input.
+    Third attempt, using Kivy for the GUI instead of pygame has a much improved Calculator class which can 
+    handle parenthesis although the GUI does not allow for their input. The GUI is basic as hell but and I
+    want to work on other things so it can wait. The Calculator class works just fine though.
     
 
 Fractionator.Fraction(frac,unit=0) calculator class object.
