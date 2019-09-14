@@ -57,6 +57,8 @@ class CalculatorApp(App):
             self.sqr = False
         if self.inp == '0' or self.inp == '':
             self.inp = inp
+        elif self.inp == '√0':
+            self.inp = '√'+inp
         else:
             self.inp += inp
 
@@ -203,11 +205,11 @@ class CalculatorApp(App):
         elif inp == '=':
             if last in self.operators or last == '.':
                 self.inp = pop
-            if self.oper != None and last == '√':
+            elif self.oper != None and last == '√':
                 self.inp = pop[:len(pop)-1:]
-            if self.inp == '√' or self.inp == '√0':
-                self.inp == ''
-            if self.inp == '' or self.oper == None and self.sqrt == False and self.sqr==False:
+            if self.inp == '√' or self.inp == '√0' or self.inp == '':
+                pass
+            elif self.oper == None and self.sqrt == False and self.sqr==False:
                 pass
             else:
                 self._get_result()
