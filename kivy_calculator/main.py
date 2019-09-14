@@ -55,7 +55,10 @@ class CalculatorApp(App):
         if self.sqr == True:
             self.inp = pop
             self.sqr = False
-        self.inp += inp
+        if self.inp == '0' or self.inp == '':
+            self.inp = inp
+        else:
+            self.inp += inp
 
     def _dec(self,inp):
         if self.oper == None:
@@ -74,6 +77,8 @@ class CalculatorApp(App):
 
     def _sqrt(self,inp):
         if self.oper == None:
+            if self.inp == '0':
+                self.inp = ''
             self.inp = inp+self.inp
             self.sqrt = True
         else:
@@ -198,9 +203,14 @@ class CalculatorApp(App):
         elif inp == '=':
             if last in self.operators or last == '.':
                 self.inp = pop
-            if last == '√':
+            if self.oper != None and last == '√':
                 self.inp = pop[:len(pop)-1:]
-            self._get_result()
+            if self.inp == '√' or self.inp == '√0':
+                self.inp == ''
+            if self.inp == '' or self.oper == None and self.sqrt == False and self.sqr==False:
+                pass
+            else:
+                self._get_result()
         else:
             if inp.isdigit():
                 self._num(inp,pop)
