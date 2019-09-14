@@ -44,12 +44,6 @@ class CalculatorApp(App):
 
         return parent
 
-    def __str__(self):
-        if self.is_result == True:
-            return self.result
-        else:
-            return self.inp
-
     def _display_update(self,display_1,display_2=None):
         if display_1 == '':
             display_1 = '0'
