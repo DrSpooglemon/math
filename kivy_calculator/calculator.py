@@ -39,7 +39,7 @@ class Calculator:
                 answer = int(answer)
             if no_more_parentheses == True and len(_list) == 1:
                 no_more_operators = True
-            if no_more_parentheses == True and no_more_operators == True:
+            if no_more_operators == True:
                 return answer
             _string = string_a+str(answer)+string_c
 
