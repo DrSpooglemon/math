@@ -77,7 +77,6 @@ class CalculatorApp(App):
         else:
             p = self.inp.partition(self.oper)
             self.inp = p[0]+p[1]+inp+p[2]
-            self.equ = p[0]+p[1]+inp+p[2]
             self.sqrt = True
 
     def _num(self,inp,pop):
@@ -127,7 +126,6 @@ class CalculatorApp(App):
             else:
                 if len(p[2]) > 1:
                     self.inp += inp
-                    self.equ += inp
                     self.sqr = True
 
     def _oper(self,inp,last,pop):
