@@ -1,25 +1,24 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jul 29 22:19:46 2019
-
-@author: jj
-"""
 from math import sqrt
 
 class Calculator:
     def __init__(self,_string):
         self.equation = _string
         self.operators = ['*','/','+','-']
+        self.powers = ['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹']
         self.imaginary_numbers = []
+        self.are_parentheses = None
+        self.are_operators = None
+        self.are_square_roots = None
+
+    def __str__(self):
+        return self.equation
 
     def _calculate(self):
         _string = self.equation
-        no_more_parentheses = None
-        no_more_operators = None
         while True:
             string_a,string_b,string_c = self._in_parentheses(_string)
             if string_b == _string:
-                no_more_parentheses = True
+                self.are_parentheses = False
             _list = self._parse_operators(string_b)
             _list = self._sqrt(_list)
             if _list == 'Error':
@@ -27,7 +26,7 @@ class Calculator:
             for item in _list:
                 if '|' in item:
                     return 'Error'
-            _list = self._sqr(_list)
+            _list = self._pow(_list)
             _list = self._strings_to_floats(_list)
             _list = self._get_negatives(_list)
             for o in self.operators:
@@ -35,13 +34,11 @@ class Calculator:
                 if _list == 'Error':
                     return 'Error'
             answer = _list[0]
-            if answer - int(answer) == 0:
-                answer = int(answer)
-            if no_more_parentheses == True and len(_list) == 1:
-                no_more_operators = True
-            if no_more_operators == True:
-                return answer
-            _string = string_a+str(answer)+string_c
+            if self.are_parentheses == False and len(_list) == 1:
+                self.are_operators = False
+            if self.are_operators == False and self.are_square_roots != True:
+                return float(answer)
+            _string = string_a+answer+string_c
 
     def _oper(self,_list,o):
         new_list = []
@@ -49,8 +46,8 @@ class Calculator:
             new_list.clear()
             if o in _list:
                 i = _list.index(o)
-                N1 = _list[i-1]
-                N2 = _list[i+1]
+                N1 = float(_list[i-1])
+                N2 = float(_list[i+1])
                 if o == '*':
                     Nr = N1*N2
                 elif o == '/':
@@ -63,7 +60,7 @@ class Calculator:
                 else:
                     Nr = N1-N2
                 new_list.extend(_list[:i-1])
-                new_list.extend([Nr])
+                new_list.extend([str(Nr)])
                 try:
                     new_list.extend(_list[i+2:])
                 except:
@@ -139,7 +136,7 @@ class Calculator:
                         _list.insert(i+1,p[1])
                         _list.insert(i+2,p[2])
 
-                    is_in_string = True
+                        is_in_item = True
                 if is_in_item == True:
                     continue
                 else:
@@ -149,47 +146,46 @@ class Calculator:
     def _sqrt(self,_list):
         new_list = []
         while True:
-            is_in_list = None
+            self.sqare_roots = None
             new_list.clear()
             for i,item in enumerate(_list):
-                if item == '√':
-                    try:
-                        new_list.extend(_list[:i])
-                    except:
-                        pass
-                    try:
-                        new_list.extend([str(sqrt(float(_list[i+1])))])
-                    except:
-                        return 'Error'
-                    try:
-                        new_list.extend(_list[i+2:])
-                    except:
-                        pass
-                elif type(item) is str and '√' in item:
-                    if '²' in item:
-                        item = item.partition('²')[0]
-                        item = item.partition('√')[2]
-                    else:
-                        item = str(sqrt(float(item[1:])))
-                    try:
-                        new_list.extend(_list[:i])
-                    except:
-                        pass
-                    new_list.extend([item])
-                    try:
-                        new_list.extend(_list[i+1:])
-                    except:
-                        pass
-                if len(new_list) > 0:
-                    _list.clear()
-                    _list.extend(new_list)
-                    break
+                if '√' in item:
+                    self.square_roots = True
+                    if len(item)>1:
+                        n = item.partition('√')[2]
+                        for p in self.powers:
+                            if p in n:
+                                n = n.partition(p)[0]
+                                break
+                            else:
+                                p = None
+                        try:
+                            new_list.extend(_list[:i])
+                        except:
+                            pass
+                        try:
+                            r = str(sqrt(float(n)))
+                            if p != None:
+                                r += p
+                            new_list.extend([r])
+                        except:
+                            return 'Error'
+                        try:
+                            new_list.extend(_list[i+1:])
+                        except:
+                            pass
+                    if len(new_list) > 0:
+                        _list.clear()
+                        _list = new_list
+                        break
+                
             return _list
 
-    def _sqr(self,_list):
+    def _pow(self,_list):
         for i,item in enumerate(_list):
-            if '²' in item:
-                n = item.partition('²')[0]
-                _list.remove(item)
-                _list.insert(i,str(float(n)**2))
+            for j,p in enumerate(self.powers):
+                if p in item:
+                    n = item.partition(p)[0]
+                    _list.remove(item)
+                    _list.insert(i,str(float(n)**j))
         return _list
