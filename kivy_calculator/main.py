@@ -20,14 +20,16 @@ class CalculatorApp(App):
         self.parent = BoxLayout(orientation='vertical')
         self.display_1 = Label(text='0',size_hint_y=1)
         self.display_2 = Label(text='',size_hint_y=0.8)
-        button_labels = ['7','8','9','×',
+        self.button_labels = ['7','8','9','×',
                          '4','5','6','÷',
                          '1','2','3','+',
                          '.','0','del','−',
                          'X²','√','C','=',
                           ]
+        
+    def build(self):
         button_grid = GridLayout(cols=4,size_hint_y=4.2)
-        for label in button_labels:
+        for label in self.button_labels:
             button = Button(text=label)
             button.bind(on_press=self.callback)
             button_grid.add_widget(button)
@@ -35,8 +37,6 @@ class CalculatorApp(App):
         self.parent.add_widget(self.display_1)
         self.parent.add_widget(button_grid)
         
-    def build(self):
-
         return self.parent
 
     def _display_update(self,display_1,display_2=None):
