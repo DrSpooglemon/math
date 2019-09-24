@@ -1,20 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep  8 13:08:47 2019
-
-@author: jj
-"""
-
-from calculator import Calculator
+from calculator_obj import Calculator
 from kivy.app import App
-from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
 class CalculatorApp(App):
-    def build(self):
+    def __init__(self):
+        super(CalculatorApp,self).__init__()
         self.inp = ''
         self.n_dec = 8
         self.dec = False
@@ -24,25 +17,27 @@ class CalculatorApp(App):
         self.is_result = False
         self.operators = ['×','÷','+','−']
         self.eop = ['*','/','+','-']
-        parent = BoxLayout(orientation='vertical')
+        self.parent = BoxLayout(orientation='vertical')
         self.display_1 = Label(text='0',size_hint_y=1)
         self.display_2 = Label(text='',size_hint_y=0.8)
         button_labels = ['7','8','9','×',
                          '4','5','6','÷',
                          '1','2','3','+',
                          '.','0','del','−',
-                         '()²','√','C','=',
+                         'X²','√','C','=',
                           ]
         button_grid = GridLayout(cols=4,size_hint_y=4.2)
         for label in button_labels:
             button = Button(text=label)
             button.bind(on_press=self.callback)
             button_grid.add_widget(button)
-        parent.add_widget(self.display_2)
-        parent.add_widget(self.display_1)
-        parent.add_widget(button_grid)
+        self.parent.add_widget(self.display_2)
+        self.parent.add_widget(self.display_1)
+        self.parent.add_widget(button_grid)
+        
+    def build(self):
 
-        return parent
+        return self.parent
 
     def _display_update(self,display_1,display_2=None):
         if display_1 == '':
@@ -181,10 +176,10 @@ class CalculatorApp(App):
             self._reset_with_error()
             self.is_result = False
         else:
+            result = round(result,self.n_dec)
             if result - int(result) == 0:
                 result = int(result)
             else:
-                result = round(result,self.n_dec)
                 self.dec = True
             self.result = str(result)
             self._display_update(self.result,self.inp)
@@ -220,7 +215,7 @@ class CalculatorApp(App):
                 self._sqrt(inp)
             elif inp == '.' and self.dec == False:
                 self._dec(inp)
-            elif inp == '()²' and self.sqr == False:
+            elif inp == 'X²' and self.sqr == False:
                 inp = '²'
                 self._sqr(inp,last,pop)
             elif inp in self.operators:
