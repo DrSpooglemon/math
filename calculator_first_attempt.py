@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jul 29 22:19:46 2019
-
-@author: jj
-"""
-
 import pygame as py
 from math import sqrt
 
