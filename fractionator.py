@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Apr 14 18:41:01 2019
-
-@author: jj
-"""
-
 class Fraction:
     def __init__(self,frac,unit=0):
         assert type(frac[0]) == int and type(frac[1]) == int and type(unit) == int
