@@ -20,6 +20,7 @@ class Calculator:
             if string_b == _string:
                 self.are_parentheses = False
             _list = self._parse_operators(string_b)
+            _list = self._get_negatives(_list)
             _list = self._sqrt(_list)
             if _list == 'Error':
                 return 'Error'
@@ -27,7 +28,6 @@ class Calculator:
                 if '|' in item:
                     return 'Error'
             _list = self._pow(_list)
-            _list = self._get_negatives(_list)
             for o in self.operators:
                 _list = self._oper(_list,o)
                 if _list == 'Error':
@@ -61,14 +61,14 @@ class Calculator:
                 new_list.extend(_list[:i-1])
                 new_list.extend([str(Nr)])
                 try:
-                    new_list.extend(_list[i+2:])
+                    new_list.extend(_list[i+1:])
                 except:
                     pass
                 _list.clear()
                 _list.extend(new_list)
             else:
                 return _list
-            
+
     def _get_negatives(self,_list):
         new_list = []
         index_list = []
