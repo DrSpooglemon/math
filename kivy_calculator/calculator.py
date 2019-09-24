@@ -27,7 +27,6 @@ class Calculator:
                 if '|' in item:
                     return 'Error'
             _list = self._pow(_list)
-            _list = self._strings_to_floats(_list)
             _list = self._get_negatives(_list)
             for o in self.operators:
                 _list = self._oper(_list,o)
@@ -69,17 +68,7 @@ class Calculator:
                 _list.extend(new_list)
             else:
                 return _list
-
-    def _strings_to_floats(self,_list):
-        for i,item in enumerate(_list):
-            try:
-                f = float(item)
-                _list.remove(item)
-                _list.insert(i,f)
-            except:
-                pass
-        return _list
-
+            
     def _get_negatives(self,_list):
         new_list = []
         index_list = []
@@ -87,9 +76,9 @@ class Calculator:
             if item == '√' and _list[i+1] == '-':
                 index_list.extend([i+1])
         for i in index_list:
-            n = -_list[i+1]
+            n = -float(_list[i+1])
             new_list.extend(_list[:i])
-            new_list.extend([n])
+            new_list.extend([str(n)])
             try:
                 new_list.extend(_list[i+2:])
             except:
@@ -104,7 +93,7 @@ class Calculator:
                     new_list.extend(_list[:i])
                 except:
                     pass
-                new_list.extend([-_list[i+2]])
+                new_list.extend([str(-float(_list[i+2]))])
                 try:
                     new_list.extend(_list[i+3:])
                 except:
