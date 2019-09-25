@@ -61,7 +61,7 @@ class Calculator:
                 new_list.extend(_list[:i-1])
                 new_list.extend([str(Nr)])
                 try:
-                    new_list.extend(_list[i+1:])
+                    new_list.extend(_list[i+2:])
                 except:
                     pass
                 _list.clear()
