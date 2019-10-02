@@ -20,7 +20,6 @@ class CalculatorApp(App):
         self.display_operators = ['×','÷','+','−']
         self.operators = ['*','/','+','-']
         self.sqrt = '√'
-        self.exp = '^'
         self.sqr = 'X²'
         self.cube = 'X³'
         self.parent = BoxLayout(orientation='vertical')
