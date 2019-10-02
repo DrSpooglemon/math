@@ -55,6 +55,8 @@ class CalculatorApp(App):
                 if item[0] == 'exp':
                     for l in range(len(item[1])):
                         _string += self.superscripts[int(item[1][l:l+1])]
+                elif item[0] == 'oper':
+                    _string += self.display_operators[self.operators.index(item[1])]
                 else:
                     _string += item[1]
             if len(self.auto_close_par) > 0:
@@ -65,12 +67,16 @@ class CalculatorApp(App):
             _string = '0'
         self.display_1.text = _string
         if type(display_2) is str:
-            self.display_2.text = display_2
+            _string = display_2
+            for i,o in enumerate(self.operators):
+                for _ in range(str(_string).count(o)):
+                    p = _string.partition(o)
+                    _string = p[0]+self.display_operators[i]+p[2]
         elif type(display_2) is list:
             _string = ''
             for item in display_2:
                 _string += list(item.items())[0][1]
-            self.display_2.text = _string
+        self.display_2.text = _string
             
     def _num(self,inp):
         pos = len(self.inp)-1
@@ -206,10 +212,6 @@ class CalculatorApp(App):
         self._parse()
         equation = Calculator(self.inp)
         self.equation = str(equation)
-        for i,o in enumerate(self.operators):
-            for _ in range(str(equation).count(o)):
-                p = self.equation.partition(o)
-                self.equation = p[0]+self.display_operators[i]+p[2]
         result = equation._calculate()
         if result == 'Error':
             self._cancel(error=True)
