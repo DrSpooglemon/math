@@ -66,17 +66,18 @@ class CalculatorApp(App):
         if _string == '':
             _string = '0'
         self.display_1.text = _string
-        if type(display_2) is str:
-            _string = display_2
-            for i,o in enumerate(self.operators):
-                for _ in range(str(_string).count(o)):
-                    p = _string.partition(o)
-                    _string = p[0]+self.display_operators[i]+p[2]
-        elif type(display_2) is list:
-            _string = ''
-            for item in display_2:
-                _string += list(item.items())[0][1]
-        self.display_2.text = _string
+        if display_2 != None:
+            if type(display_2) is str:
+                _string = display_2
+                for i,o in enumerate(self.operators):
+                    for _ in range(str(_string).count(o)):
+                        p = _string.partition(o)
+                        _string = p[0]+self.display_operators[i]+p[2]
+            elif type(display_2) is list:
+                _string = ''
+                for item in display_2:
+                    _string += list(item.items())[0][1]
+            self.display_2.text = _string
             
     def _num(self,inp):
         pos = len(self.inp)-1
