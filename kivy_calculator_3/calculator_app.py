@@ -166,7 +166,7 @@ class CalculatorApp(App):
         elif inp == ')':
             if len(self.auto_close_par) > 0:
                 key = list(self.inp[pos].items())[0][0]
-                if key == 'num' or key == 'exp':
+                if key == 'num' or key == 'exp' or key == 'close_par':
                     self.inp.extend([{'close_par':')'}])
                     self.auto_close_par.pop()
                 
