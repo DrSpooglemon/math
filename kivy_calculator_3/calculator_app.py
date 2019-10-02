@@ -2,7 +2,6 @@ from calculator_obj import Calculator
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.core.window import Window
@@ -11,8 +10,6 @@ from kivy.utils import platform
 class CalculatorApp(App):
     def __init__(self):
         super(CalculatorApp,self).__init__()
-        if platform != 'Android':
-            Window.size = (535,900)
         self.inp = []
         self.equation = ''
         self.result = []
