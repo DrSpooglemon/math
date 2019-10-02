@@ -44,14 +44,14 @@ class Calculator:
                     _list = _list[:i]
                     _list = _list[::-1]
                     for i,item in enumerate(_list):
-                        key = list(item.items())[0][0]
-                        if key == 'open_par':
-                            list_a.extend(_list[i+1:])
-                            list_a = list_a[::-1]
-                            _list = _list[:i]
-                            _list = _list[::-1]
-                            return list_a,_list,list_c
-                            
+                        if type(item) is dict:
+                            key = list(item.items())[0][0]
+                            if key == 'open_par':
+                                list_a.extend(_list[i+1:])
+                                list_a = list_a[::-1]
+                                _list = _list[:i]
+                                _list = _list[::-1]
+                                return list_a,_list,list_c
         return list_a,_list,list_c
     
     def _get_floats(self,_list):
