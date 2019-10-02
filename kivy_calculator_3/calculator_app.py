@@ -58,8 +58,10 @@ class CalculatorApp(App):
                         _string += self.superscripts[int(item[1][l:l+1])]
                 else:
                     _string += item[1]
-            for item in self.auto_close_par:
-                _string += ')'
+            if len(self.auto_close_par) > 0:
+                _string += ' '
+                for item in self.auto_close_par:
+                    _string += ')'
         if _string == '':
             _string = '0'
         self.display_1.text = _string
@@ -177,6 +179,10 @@ class CalculatorApp(App):
                 self.inp[pos][item[0]] = item[1][:l-1] 
             else:
                 self.inp.pop(pos)
+                if item[0] == 'close_par':
+                    self.auto_close_par.extend([{'close_par':')'}])
+                elif item[0] == 'open_par':
+                    self.auto_close_par.pop()   
                     
     def _cancel(self,error=False):
         self.inp.clear()
