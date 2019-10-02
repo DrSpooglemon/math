@@ -224,27 +224,8 @@ class CalculatorApp(App):
             self.result.extend([{'num':str(result)}])
             self._display_update(self.result,self.equation)
             self.inp.clear()
-            self.exp = False
+            self.is_exp = False
             self.is_result = True
             
     def callback(self,instance):
         pass
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
-        
-        
-        
-        
-        
-        
