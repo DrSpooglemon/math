@@ -11,10 +11,16 @@ Calculator
     want to work on other things so it can wait. The Calculator class works just fine though.
     
     Fourth attempt, the gui extends the kivy gui from the thrid one and allows for inputing parentheses, 
-    powers of numbers 0-9 imstaead of just squaring and backspacing. The next steps will be to improve the 
+    powers of numbers 0-9 imstead of just squaring and backspacing. The next steps will be to improve the 
     look of the gui and rethink the calculator class. I'm thinking it would make more sense to input a list 
     rather tan a string. 
     
+    Fifth attempt, I'm going to leave the backspacing out just now as I want to move onto something else. In
+    this version the gui creates a list of dictionary items that is then passed onto the calculator class. 
+    This allows the calcualtor class to be more streamlined but it makes back and forward spacing a little 
+    more complicated. I would also have to factor in the error handling if the user were to delete something
+    from the input list. It's more work than I think this project deserves as a calculator isn't very exiting.
+    I was only doing this to refine my OOP writing.
 
 Fractionator.Fraction(frac,unit=0) calculator class object.
     'frac' takes a tuple argument (num,denom). 
