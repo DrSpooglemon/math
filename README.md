@@ -1,5 +1,10 @@
 # math
 
+Calculator 1.0
+    This file contains a vastly improved calculator base class along with an extended class which takes 
+    inputs and readies the data for the base class to process. The gui that goes with it is not ready 
+    for upload yet.
+
 Calculator
     First attempt is a very basic calculator and probably a bunch of spaghetti code. I'm going t0 work on 
     having a separate calculator class and GUI, then add other calculator functions.
